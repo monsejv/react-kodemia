@@ -1,32 +1,43 @@
-import React, { Component } from 'react'
-
-class FormInput extends Component {
-    constructor(props) {
-    super(props)
+import React, { useState } from 'react'
 
 
-    this.state = {
-      text: " "
-    }
+function FormInput(props){
+  const [state, setState] = useState('')
+
+  const onChange = (event) => {
+    setState(event.target.value)
+    if (props.onChange) props.onChange(event)
   }
 
-  getAnotheState(event){
-    const text = event.target.value
-    this.setState({ text })
-  }
+  return (
+    <div className="form-group">
+      <label htmlFor={props.id}>
+        { props.label }
+      </label>
 
-  render(){
-    return(
       <input
-        className="form-control mr-sm-2"
-        type= { this.props.type}
-        placeholder= { this.props.placeholder }
-        aria-label= { this.props.arialabel }
-        onChange= { this.getAnotheState.bind(this) }
+        className="form-control"
+        id={props.id}
+        name={props.name}
+        type={props.type}
+        placeholder={props.placeholder}
+        aria-label={props.ariaLabel}
+        aria-describedby={props.ariaDescribedBy}
+        value={state}
+        onChange={onChange}
       />
-    )
-  }
-
+      {
+        props.help && (
+          <small
+            id={props.id}
+            className="form-text text-muted"
+          >
+            { props.help }
+          </small>
+        )
+      }
+    </div>
+  )
 }
 
 export default FormInput

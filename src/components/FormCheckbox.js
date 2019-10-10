@@ -1,45 +1,31 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-class FormCheckbox extends Component {
-  constructor(props){
-    super(props)
+function FormCheckbox (props){
+  const [state, setState] = useState(false)
 
-    this.state = {
-      active: false
-    }
+  const toggleActive = () => {
+      setState(!state)
   }
-
-  toggleCheckActive(){
-    this.setState({ active: !this.state.active })
-    // Setea el estado del check en cada click
-  }
-
-
-  render(){
-    return(
-      <div
-        className="form-check"
-      >
+  return (
+    <div className="form-check">
       <input
         className="form-check-input"
         type="checkbox"
-        checked={this.state.active}
-        // Se pone el estado inicial del check
-        value=""
-        id={ this.props.id }
-        onClick= { this.toggleCheckActive.bind(this) }
+        checked={state.isActive}
+        id={props.id}
+        onChange={toggleActive}
       />
-      { this.state.active && (
+      { state.isActive && (
         <label
           className="form-check-label text-light"
-          for={ this.props.id }>
-            { this.props.label }
+          htmlFor={props.id}
+        >
+          { props.label }
         </label>
       )}
     </div>
-    // Se esta evaluando si el check esta activo se muestra el texto
-    )
-  }
+  )
 }
+
 
 export default FormCheckbox

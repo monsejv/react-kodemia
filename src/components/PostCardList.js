@@ -2,21 +2,23 @@ import React from 'react'
 
 import PostCard from './PostCard'
 
-function PostCardList(props) {
+function PostCardList (props) {
   const { posts } = props
-  return(
+
+  return (
     <section>
-     { posts.map(post => {
-       return (
-         < PostCard
-            title={ post.title }
-            image={ post.image }
-            description={ post.description }
-            date={ post.date }
-            key= { post.title }
-         />
-       )
-     }) }
+      {
+        posts.map(post => (
+          <PostCard
+            id={post._id}
+            title={post.title}
+            description={post.description}
+            date={post.date}
+            image={post.image}
+            key={post.title}
+          />
+        ))
+      }
     </section>
   )
 }

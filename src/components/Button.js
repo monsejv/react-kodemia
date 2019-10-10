@@ -1,21 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Button extends Component{
-  render(){
-    const styles = ['btn', 'my-2', 'my-sm-0']
-    if(this.props.className) styles.push('btn-outline-success')
-    const className = styles.join(' ')
+function Button(props) {
+  const styles = ['btn my-2 my-sm-0']
 
-    return(
-      <button
-        className={ className }
-        type={ this.props.type }
-      >
-        { this.props.text }
-      </button>
-    )
-  }
+  if (props.btnClass) styles.push(props.btnClass)
+
+  const className = styles.join(' ')
+
+  return (
+    <button
+      className={className}
+      type={props.type}
+    >
+      { props.text }
+    </button>
+  )
 }
-
 
 export default Button

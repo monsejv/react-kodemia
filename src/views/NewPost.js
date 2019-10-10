@@ -1,17 +1,37 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-import NavBar from '../components/Navbar'
-import Form from '../components/Form'
+import Navbar from '../components/Navbar'
+import NewPostForm from '../components/NewPost'
+import { Redirect } from 'react-router-dom'
 
-class NewPost extends Component{
-  render(){
+import api from '../lib/api'
+
+function NewPost (props) {
+  const savePost = async (post) => {
+    await api.createPost(post)
+
+    props.history.push('/')
+  }
+
+  const token = sessionStorage.getItem('token')
+
+  if(!token){
     return(
-      <main>
-        <NavBar />
-        <Form />
-      </main>
+      <Redirect
+        to="/sign-in"
+      />
     )
   }
+    return (
+      <div className='new-post'>
+        <Navbar />
+        <section className="container">
+          <NewPostForm
+            onSubmit={savePost}
+          />
+        </section>
+      </div>
+    )
 }
 
 export default NewPost
